@@ -1,0 +1,27 @@
+<h2>Lista de Contas</h2>
+<hr>
+    <div class="container">  
+        <div class="row">
+            {{#each contas}}
+                <div class="col-md-4">                 
+                    <div class="card  text-center">
+                        <div class="card-header">
+                            Contas: 
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{dataValues.nome}}</h5>   
+                            <br>         
+                            <a href="/admin/deletarConta/{{dataValues.id}}"><button class="btn btn-danger">Deletar</button></a> 
+                        </div>
+                    </div> 
+                    <br>                 
+                </div>           
+            {{/each}}            
+        </div><br>
+      
+    </div>
+    
+    <br>
+
+<hr>
+<a href="/admin/conta/add"><button class="btn btn-success">Nova Conta</button></a>

@@ -1,0 +1,88 @@
+<!-- jquery -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!-- bootstrap -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- chamada da função -->
+
+    {{#if rOUd}}
+        <h3>Nova Despesa</h3>
+    {{/if}}
+    {{#if nRouD }}
+        <h3>Nova Receita</h3>
+    {{/if}}
+    
+    {{#if alert }}
+        <script type="text/javascript">
+            $(window).load(function() {
+                $('#myModal').modal('show');
+            });
+        </script>
+       <div class="modal" id="myModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adicionada com sucesso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     <p>Deseja adicionar outra entrada ?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="/admin/entradas" ><button type="button" class="btn btn-secondary" >Não</button></a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Sim</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+    
+<div class="card">
+    <div class="card-body">
+        <form action="/admin/entrada/nova" method="POST">
+
+            valor: entrada.valor,
+            tipo: entrada.tipo,
+            categoriaId: entrada.categoriaId,
+            contaId: entrada.contaId 
+             
+ 
+        <label for="name">Valor: </label>
+        <input type="text" id="valor" name="valor" placeholder="Digite o valor de entrada" class="form-control">
+        <br>
+        <select id="tipo">
+            <option value="#">Selecione o tipo de entrada</option>
+            <option value="0">Receita</option>
+            <option value="1">Despesa</option>
+        </select>
+        <br><br>
+        {{#if rOUd }}
+            <select id="categoriaId">
+            <option value="#">Selecione Categoria</option>
+            {{#each categorias}}
+                <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
+            {{/each}}      
+            </select>
+            <br><br>
+        {{/if}}
+        
+        <select id="contaId">
+            <option value="#">Selecione Conta</option>
+            {{#each contas}}
+                <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
+            {{/each}}      
+        </select>
+        <br><br> 
+        <button type="submit" class="btn btn-success">Adicionar Entrada</button>
+
+        </form>
+    </div>
+      
+</div>
+     
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>

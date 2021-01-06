@@ -1,0 +1,28 @@
+<h2>Lista de Entradas</h2>
+<hr>
+    <div class="container">  
+        <div class="row">
+            {{#each entradas}}
+                <div class="col-md-4">                 
+                    <div class="card  text-center">
+                        <div class="card-header">
+                            Entradas: 
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{dataValues.valor}}</h5>
+                            <h5 class="card-title">{{dataValues.tipo}}</h5>   
+                            <br>         
+                            <a href="/admin/deletarEntrada/{{dataValues.id}}"><button class="btn btn-danger">Deletar</button></a> 
+                        </div>
+                    </div> 
+                    <br>                 
+                </div>           
+            {{/each}}            
+        </div><br>
+      
+    </div>
+    
+    <br>
+
+<hr>
+<a href="/admin/entrada/add"><button class="btn btn-success">Nova Entrada</button></a>
