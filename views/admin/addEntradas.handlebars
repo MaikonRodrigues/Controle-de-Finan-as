@@ -40,40 +40,42 @@
     <div class="card-body">
         <form action="/admin/entrada/nova" method="POST">
 
-            valor: entrada.valor,
-            tipo: entrada.tipo,
-            categoriaId: entrada.categoriaId,
-            contaId: entrada.contaId 
-             
- 
-        <label for="name">Valor: </label>
-        <input type="text" id="valor" name="valor" placeholder="Digite o valor de entrada" class="form-control">
-        <br>
-        <select id="tipo">
-            <option value="#">Selecione o tipo de entrada</option>
-            <option value="0">Receita</option>
-            <option value="1">Despesa</option>
-        </select>
-        <br><br>
-        {{#if rOUd }}
-            <select id="categoriaId">
-            <option value="#">Selecione Categoria</option>
-            {{#each categorias}}
-                <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
-            {{/each}}      
+                valor: entrada.valor,
+                tipo: entrada.tipo,
+                categoriaId: entrada.categoriaId,
+                contaId: entrada.contaId 
+                
+    
+            <label for="name">Valor: </label>
+            <input type="text" id="valor" name="valor" placeholder="Digite o valor de entrada" class="form-control">
+            <br>
+            <label for="tipo">Tipo de entrada:</label>       
+            <select name="tipo">            
+                <option value="1"> Despesa </option>
             </select>
             <br><br>
-        {{/if}}
-        
-        <select id="contaId">
-            <option value="#">Selecione Conta</option>
-            {{#each contas}}
-                <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
-            {{/each}}      
-        </select>
-        <br><br> 
-        <button type="submit" class="btn btn-success">Adicionar Entrada</button>
-
+            <label for="categoriaId">Selecione Categoria:</label>
+            {{#if rOUd }}
+                <select name="categoriaId">
+                {{#each categorias}}
+                    <option value={{dataValue.id}}>{{dataValues.nome}}</option>
+                {{/each}}      
+                </select>
+                <br><br>
+            {{/if}}
+            <label for="contaId">Selecione Conta:  </label>
+            <select name="contaId"> 
+                {{#each contas}}
+                    <option value={{dataValue.id}}>{{dataValues.nome}}</option>
+                {{/each}}      
+            </select>
+            <br><br> 
+             {{#if rOUd}}
+                <button type="submit" class="btn btn-success">Adicionar Receita</button>
+            {{/if}}
+            {{#if nRouD }}
+                <button type="submit" class="btn btn-danger">Adicionar Despesa</button>
+            {{/if}}
         </form>
     </div>
       

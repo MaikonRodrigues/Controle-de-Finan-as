@@ -24,7 +24,7 @@ const db = require('./db');
             valor: entradas.valor,
             tipo: entradas.tipo,
             categoriaId: entradas.categoriaId,
-            contaId: entrada.contaId           
+            contaId: entradas.contaId           
         }).then(function(){
             callback(null)
         }).catch(function(error) {

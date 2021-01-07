@@ -10,7 +10,13 @@ const modelEntrada = require('../models/entrada')
  * Rotas para Home
  */
     router.get('/home', (req, res) => {
-        listarEntradas(res)
+        modelEntrada.entrada.findAll({
+            order: [['updatedAt', 'DESC']]
+        }).then(function(entradas){
+            res.render('home', 
+                {entradas: entradas}
+            )
+        })    
     })
 
     router.get('/movimentacao', (req, res) => {
@@ -21,13 +27,11 @@ const modelEntrada = require('../models/entrada')
         modelEntrada.entrada.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(entradas){
-            res.render('home', 
+            res.render('entradas', 
                 {entradas: entradas}
             )
         })    
     }
-
-
 
 /*
  * Rotas para Categorias
@@ -135,8 +139,8 @@ function listarEntradas(res) {
     })    
 }
 //lista
-router.get('/entrada/add/:rOUd', (req, res) => {
-    if(req.params.rOUd == 0){
+router.get('/entrada/:rOUd', (req, res) => {
+    if(req.params.rOUd == 'add-despesa'){
         modelConta.conta.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(contas, rOUd){
