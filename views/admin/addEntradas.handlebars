@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="/admin/entradas" ><button type="button" class="btn btn-secondary" >Não</button></a>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Sim</button>
+                    <a href="/admin/entrada/add-receita"> <button type="button" class="btn btn-primary">Sim</button></a>
                 </div>
                 </div>
             </div>
@@ -38,13 +38,6 @@
 <div class="card">
     <div class="card-body">
         <form action="/admin/entrada/nova" name="teste" method="POST">
-
-                valor: entrada.valor,
-                tipo: entrada.tipo,
-                categoriaId: entrada.categoriaId,
-                contaId: entrada.contaId 
-                
-    
             <label for="name">Valor:</label>
             <input type="text" id="valor" name="valor" placeholder="Digite o valor de entrada" class="form-control">
             <br>
@@ -58,7 +51,11 @@
                 <label for="categoriaId">Selecione Categoria:</label>
                 <select name="categoriaId">
                 {{#each categorias}}
-                    <option value="{{dataValues.id}}">{{dataValues.nome}}</option>
+                     {{#if dataValues.tipo }}
+                        <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
+                    {{else}}
+                           
+                    {{/if}}
                 {{/each}}      
                 </select>
                 <br><br>
@@ -81,7 +78,11 @@
                 <label for="categoriaId">Selecione Categoria:</label>
                 <select name="categoriaId">
                 {{#each categorias}}
-                    <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
+                    {{#if dataValues.tipo }}
+                        
+                    {{else}}
+                        <option value="{{dataValue.id}}">{{dataValues.nome}}</option>   
+                    {{/if}}
                 {{/each}}      
                 </select>
                 <br><br>

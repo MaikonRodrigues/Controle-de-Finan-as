@@ -14,7 +14,7 @@ const modelEntrada = require('../models/entrada')
             order: [['updatedAt', 'DESC']]
         }).then(function(entradas){
             res.render('home', 
-                {entradas: entradas}
+                {entradas: entradas,  }
             )
         })    
     })
@@ -44,8 +44,7 @@ const modelEntrada = require('../models/entrada')
                 {categorias: categorias}
             )
         })    
-    }
-    
+    }    
     //lista
     router.get('/categorias/add', (req, res) => {
         res.render("admin/addCategorias")
@@ -144,9 +143,13 @@ router.get('/entrada/:rOUd', (req, res) => {
         modelConta.conta.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(contas, rOUd){
-            res.render('admin/addEntradas', 
-                {contas: contas, rOUd:1}
-            )
+            modelCategoria.categoria.findAll({
+                order: [['updatedAt', 'DESC']]
+            }).then(function(categorias){
+                res.render('admin/addEntradas', 
+                    {contas: contas, categorias: categorias, rOUd:1}
+                )                
+            }) 
         })  
     }else{
         modelConta.conta.findAll({
@@ -156,8 +159,8 @@ router.get('/entrada/:rOUd', (req, res) => {
                 order: [['updatedAt', 'DESC']]
             }).then(function(categorias){
                 res.render('admin/addEntradas', 
-                {contas: contas, categorias: categorias, nRouD:1 }
-            )                
+                    {contas: contas, categorias: categorias, nRouD:1 }
+                )                
             })   
         })  
         //res.render("admin/addEntradas")
@@ -176,7 +179,7 @@ router.post('/entrada/nova', (req, res) => {
             if (erro) { 
                 return res.send('Houve um erro: ' + erro)
             } 
-            res.render("admin/addEntrada", {alert: true})
+            res.render("admin/addEntradas", {alert: true})
         }) 
     }
          
@@ -188,7 +191,7 @@ router.get('/deletarEntrada/:id', function(req, res) {
             id: req.params.id
         }
     }).then(function(){
-        listarContas(res)
+        listarEntradas(res)
     }).catch(function(error) {
         res.send('Esta Entrada não existe')
     })   

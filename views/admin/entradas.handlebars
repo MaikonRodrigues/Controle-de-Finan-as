@@ -10,7 +10,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{dataValues.valor}}</h5>
-                            <h5 class="card-title">{{dataValues.tipo}}</h5>   
+                             <h6 >{{#if dataValues.tipo }}Receita{{else}} Despesa{{/if}}</h6>   
                             <br>         
                             <a href="/admin/deletarEntrada/{{dataValues.id}}"><button class="btn btn-danger">Deletar</button></a> 
                         </div>

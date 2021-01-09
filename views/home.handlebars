@@ -12,7 +12,9 @@
                 </div>
                 <div class="col-sm colorWhite pading-top-buttom">
                     <p style="margin-top: 15px;">Saldo em Conta</p>
-                    <h4 class="card-title padding-bottom"  style="margin-top: -15px;">R$ 00.00</h4> 
+                    {{#each entradas}}
+                        <h4 class="card-title padding-bottom"  style="margin-top: -15px;">R$ {{dataValues.valor}}</h4> 
+                    {{/each}}
                 </div>
                 <div class="col-sm">
                 
@@ -32,7 +34,7 @@
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Receitas</p>
                                     <h4 class="card-title">R$ 00.00</h4>
-                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary margin-top btn-sm"><i class="fa fa-plus">Nova Receita</i></a>
+                                    <a href="/admin/entrada/add-receita" class="btn btn-primary margin-top btn-sm"><i class="fa fa-plus">Nova Receita</i></a>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +51,7 @@
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Despesas</p>
                                     <h4 class="card-title">R$ 00.00</h4>                                
-                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Nova Despesa</i></a>
+                                    <a href="/admin/entrada/add-despesa" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Nova Despesa</i></a>
                                 </div>
                             </div>
                         </div>
