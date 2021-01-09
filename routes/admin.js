@@ -140,12 +140,12 @@ function listarEntradas(res) {
 }
 //lista
 router.get('/entrada/:rOUd', (req, res) => {
-    if(req.params.rOUd == 'add-despesa'){
+    if(req.params.rOUd == 'add-receita'){
         modelConta.conta.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(contas, rOUd){
             res.render('admin/addEntradas', 
-                {contas: contas, nRouD:1}
+                {contas: contas, rOUd:1}
             )
         })  
     }else{
@@ -156,7 +156,7 @@ router.get('/entrada/:rOUd', (req, res) => {
                 order: [['updatedAt', 'DESC']]
             }).then(function(categorias){
                 res.render('admin/addEntradas', 
-                {contas: contas, categorias: categorias, rOUd:1}
+                {contas: contas, categorias: categorias, nRouD:1 }
             )                
             })   
         })  

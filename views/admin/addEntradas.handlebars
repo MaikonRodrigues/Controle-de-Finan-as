@@ -3,12 +3,11 @@
 <!-- bootstrap -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <!-- chamada da função -->
-
     {{#if rOUd}}
-        <h3>Nova Despesa</h3>
+        <h3>Nova Receita</h3>
     {{/if}}
     {{#if nRouD }}
-        <h3>Nova Receita</h3>
+        <h3>Nova Despesa</h3>
     {{/if}}
     
     {{#if alert }}
@@ -38,7 +37,7 @@
     
 <div class="card">
     <div class="card-body">
-        <form action="/admin/entrada/nova" method="POST">
+        <form action="/admin/entrada/nova" name="teste" method="POST">
 
                 valor: entrada.valor,
                 tipo: entrada.tipo,
@@ -46,39 +45,58 @@
                 contaId: entrada.contaId 
                 
     
-            <label for="name">Valor: </label>
+            <label for="name">Valor:</label>
             <input type="text" id="valor" name="valor" placeholder="Digite o valor de entrada" class="form-control">
             <br>
-            <label for="tipo">Tipo de entrada:</label>       
-            <select name="tipo">            
-                <option value="1"> Despesa </option>
-            </select>
-            <br><br>
-            <label for="categoriaId">Selecione Categoria:</label>
-            {{#if rOUd }}
+           
+            {{#if rOUd}}
+                <label for="tipo">Tipo de entrada:</label>       
+                <select name="tipo">            
+                    <option value="1">Receita</option>
+                </select>
+                <br><br>
+                <label for="categoriaId">Selecione Categoria:</label>
                 <select name="categoriaId">
                 {{#each categorias}}
-                    <option value={{dataValue.id}}>{{dataValues.nome}}</option>
+                    <option value="{{dataValues.id}}">{{dataValues.nome}}</option>
                 {{/each}}      
                 </select>
                 <br><br>
-            {{/if}}
-            <label for="contaId">Selecione Conta:  </label>
-            <select name="contaId"> 
-                {{#each contas}}
-                    <option value={{dataValue.id}}>{{dataValues.nome}}</option>
-                {{/each}}      
-            </select>
-            <br><br> 
-             {{#if rOUd}}
+                <label for="contaId">Selecione Conta:</label>
+                <select name="contaId"> 
+                    {{#each contas}}
+                        <option value="{{dataValues.id}}">{{dataValues.nome}}</option>
+                    {{/each}}      
+                </select>
+                <br><br> 
                 <button type="submit" class="btn btn-success">Adicionar Receita</button>
-            {{/if}}
-            {{#if nRouD }}
-                <button type="submit" class="btn btn-danger">Adicionar Despesa</button>
+            {{/if}}            
+            
+            {{#if nRouD}}
+                <label for="tipo">Tipo de entrada:</label>       
+                <select name="tipo">            
+                    <option value="0"> Despesa </option>
+                </select>
+                <br><br>
+                <label for="categoriaId">Selecione Categoria:</label>
+                <select name="categoriaId">
+                {{#each categorias}}
+                    <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
+                {{/each}}      
+                </select>
+                <br><br>
+                <label for="contaId">Selecione Conta:  </label>
+                <select name="id"> 
+                    {{#each contas}}
+                        <option value={{dataValue.id}}>{{dataValues.nome}}</option>
+                    {{/each}}      
+                </select>
+                <br><br> 
+                <button type="submit" class="btn btn-danger">Adicionar Despesa</button>               
+                
             {{/if}}
         </form>
     </div>
-      
 </div>
      
 
