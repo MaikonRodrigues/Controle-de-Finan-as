@@ -11,10 +11,9 @@
                     
                 </div>
                 <div class="col-sm colorWhite pading-top-buttom">
-                    <p style="margin-top: 15px;">Saldo em Conta</p>
-                    {{#each entradas}}
-                        <h4 class="card-title padding-bottom"  style="margin-top: -15px;">R$ {{dataValues.valor}}</h4> 
-                    {{/each}}
+                    <p style="margin-top: 15px;">Saldo na Carteira</p>
+                    <h4 class="card-title padding-bottom"  style="margin-top: -15px;">R$ {{saldCart}}</h4> 
+                   
                 </div>
                 <div class="col-sm">
                 
@@ -33,7 +32,7 @@
                                 </div>
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Receitas</p>
-                                    <h4 class="card-title">R$ 00.00</h4>
+                                    <h4 class="card-title">R$ {{totReceita}}</h4>
                                     <a href="/admin/entrada/add-receita" class="btn btn-primary margin-top btn-sm"><i class="fa fa-plus">Nova Receita</i></a>
                                 </div>
                             </div>
@@ -50,7 +49,7 @@
                                 </div>
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Despesas</p>
-                                    <h4 class="card-title">R$ 00.00</h4>                                
+                                    <h4 class="card-title">R$ {{totDespesa}}</h4>                                
                                     <a href="/admin/entrada/add-despesa" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Nova Despesa</i></a>
                                 </div>
                             </div>
@@ -71,8 +70,10 @@
                                 </div>
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Contas</p>
-                                    <h4 class="card-title">R$ 00.00</h4>
-                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary margin-top btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
+                                    {{#each valorConta}}
+                                       <h4 class="card-title">Conta: {{id}} - R$ {{valor}}</h4>
+                                    {{/each}}
+                                    <a href=" " class="btn btn-primary margin-top btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
                                 </div>
                             </div>
                         </div>

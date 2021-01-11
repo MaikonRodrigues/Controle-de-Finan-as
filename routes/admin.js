@@ -4,19 +4,61 @@ const express = require("express")
 const router = express.Router()
 const modelCategoria = require('../models/categoria')
 const modelConta = require('../models/conta')
+//const entrada = require("../models/entrada")
 const modelEntrada = require('../models/entrada')
 
 /*
  * Rotas para Home
  */
     router.get('/home', (req, res) => {
+        valorConta = []
         modelEntrada.entrada.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(entradas){
-            res.render('home', 
-                {entradas: entradas,  }
-            )
-        })    
+            var saldoCont = 0, totReceita = 0, totDespesa = 0, saldCart = 0
+            entradas.forEach( 
+                (entrada) => {
+                    if(entrada.tipo === 0){
+                        totDespesa = totDespesa + entrada.valor
+                    }else{
+                        if(entrada.contaId === 6){
+                            saldCart = saldCart + entrada.valor
+                        }
+                        totReceita = totReceita + entrada.valor
+                    }
+                    saldoCont = totReceita - totDespesa
+                }
+            );
+            // Saldo por entradas
+            modelConta.conta.findAll({
+                order: [['updatedAt', 'DESC']]
+            }).then(function(contas){
+                var totValorConta = 0 
+                const valorConta = []
+                contas.forEach(
+                    (conta) => {
+                        entradas.forEach(
+                            (entrada) => {
+                                if(conta.id == entrada.contaId){                                   
+                                    totValorConta = totValorConta + entrada.valor                                    
+                                }                                
+                            }
+                        )
+                        valorConta.push({"id" : conta.nome, "valor" : totValorConta});
+                       // console.log("valor: " + valorConta)
+                       totValorConta = 0
+                    }                    
+                ) 
+                res.render('home', {
+                    entradas: entradas, saldoCont,
+                    totDespesa, totReceita, valorConta,
+                    contas: contas, saldCart
+                })          
+            })    
+            
+           
+        }) 
+       
     })
 
     router.get('/movimentacao', (req, res) => {
