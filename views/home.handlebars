@@ -90,8 +90,10 @@
                                 </div>
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Dispesas por Categoria</p>
-                                    <h4 class="card-title">R$ 00.00</h4>                                
-                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
+                                        {{#each valorCateg}}
+                                            <h4 class="card-title">Categoria: {{id}} - R$ {{valor}}</h4>
+                                        {{/each}}         
+                                    <a href="" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
                                 </div>
                             </div>
                         </div>

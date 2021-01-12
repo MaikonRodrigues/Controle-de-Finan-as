@@ -11,7 +11,8 @@ const modelEntrada = require('../models/entrada')
  * Rotas para Home
  */
     router.get('/home', (req, res) => {
-        valorConta = []
+
+        var valorConta = [], valorCateg = [], totValorCateg = 0
         modelEntrada.entrada.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(entradas){
@@ -27,14 +28,32 @@ const modelEntrada = require('../models/entrada')
                         totReceita = totReceita + entrada.valor
                     }
                     saldoCont = totReceita - totDespesa
+                              // entrada valor  categoriaId
+                    // Saldo por categorias - id - tipo (despesa - receita)
+                    modelCategoria.categoria.findAll({
+                        order: [['updatedAt', 'DESC']]
+                    }).then(function(categorias){
+                        categorias.forEach(
+                            (categoria) =>{
+                                console.log('categoriaID:  '+entrada.categoriaId + 'cat '+categoria.id) 
+                                if(entrada.categoriaId == categoria.id) {
+                                    totValorCateg = totValorCateg + entrada.valor
+                                    console.log('entrou'+ totValorCateg)
+                                }
+                            },  
+                            valorCateg.push({"id" : entrada.id, "valor" : totValorCateg}), 
+                            totValorCateg = 0
+                        )
+                         
+                    })    
                 }
             );
+            
             // Saldo por entradas
             modelConta.conta.findAll({
                 order: [['updatedAt', 'DESC']]
             }).then(function(contas){
                 var totValorConta = 0 
-                const valorConta = []
                 contas.forEach(
                     (conta) => {
                         entradas.forEach(
@@ -45,18 +64,15 @@ const modelEntrada = require('../models/entrada')
                             }
                         )
                         valorConta.push({"id" : conta.nome, "valor" : totValorConta});
-                       // console.log("valor: " + valorConta)
-                       totValorConta = 0
+                        totValorConta = 0
                     }                    
                 ) 
                 res.render('home', {
                     entradas: entradas, saldoCont,
                     totDespesa, totReceita, valorConta,
-                    contas: contas, saldCart
+                    contas: contas, saldCart, valorCateg
                 })          
-            })    
-            
-           
+            })  
         }) 
        
     })
