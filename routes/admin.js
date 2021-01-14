@@ -49,30 +49,7 @@ const modelEntrada = require('../models/entrada')
                 }
             );
             
-            // Saldo por entradas
-            modelConta.conta.findAll({
-                order: [['updatedAt', 'DESC']]
-            }).then(function(contas){
-                var totValorConta = 0 
-                contas.forEach(
-                    (conta) => {
-                        entradas.forEach(
-                            (entrada) => {
-                                if(conta.id == entrada.contaId){                                   
-                                    totValorConta = totValorConta + entrada.valor                                    
-                                }                                
-                            }
-                        )
-                        valorConta.push({"id" : conta.nome, "valor" : totValorConta});
-                        totValorConta = 0
-                    }                    
-                ) 
-                res.render('home', {
-                    entradas: entradas, saldoCont,
-                    totDespesa, totReceita, valorConta,
-                    contas: contas, saldCart, valorCateg
-                })          
-            })  
+           
         }) 
        
     })
