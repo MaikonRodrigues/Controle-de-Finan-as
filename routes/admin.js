@@ -4,14 +4,12 @@ const express = require("express")
 const router = express.Router()
 const modelCategoria = require('../models/categoria')
 const modelConta = require('../models/conta')
-//const entrada = require("../models/entrada")
 const modelEntrada = require('../models/entrada')
 
 /*
  * Rotas para Home
  */
     router.get('/home', (req, res) => {
-
         var valorConta = [], valorCateg = [], totValorCateg = 0
         modelEntrada.entrada.findAll({
             order: [['updatedAt', 'DESC']]
@@ -28,8 +26,7 @@ const modelEntrada = require('../models/entrada')
                         totReceita = totReceita + entrada.valor
                     }
                     saldoCont = totReceita - totDespesa
-                              // entrada valor  categoriaId
-                    // Saldo por categorias - id - tipo (despesa - receita)
+
                     modelCategoria.categoria.findAll({
                         order: [['updatedAt', 'DESC']]
                     }).then(function(categorias){
@@ -40,7 +37,6 @@ const modelEntrada = require('../models/entrada')
                                     for(var i = 0; i < valorCateg.length; i++){
                                         if(valorCateg[i].nome == categoria.nome){
                                             valorCateg[i].valor = valorCateg[i].valor + entrada.valor
-                                            console.log('repetiu '+ valorCateg[i].valor)
                                             repetiu = 1
                                         } 
                                     }
@@ -50,16 +46,11 @@ const modelEntrada = require('../models/entrada')
                                         valorCateg.push({"nome" : nome, "valor" : totValorCateg})
                                         repetiu = 0
                                    } 
-                                    
                                 }
-                               
                             },  
                         )  
-                        console.log(valorCateg)
                         totValorCateg = 0, nome = ''   
-                                         
-                    }) 
-                   
+                    })
                 }
             );
              
@@ -67,39 +58,34 @@ const modelEntrada = require('../models/entrada')
             modelConta.conta.findAll({
                 order: [['updatedAt', 'DESC']]
             }).then(function(contas){
-                var totValorConta = 0 
+                var totValorContaPos = 0, totValorContaNeg = 0, totValorConta = 0
                 contas.forEach(
                     (conta) => {
                         entradas.forEach(
                             (entrada) => {
-                                if(conta.id == entrada.contaId){                                   
-                                    totValorConta = totValorConta + entrada.valor                                    
-                                }                                
+                                if(conta.id == entrada.contaId){
+                                    if(entrada.tipo){
+                                        totValorContaPos = totValorContaPos + entrada.valor
+                                        console.log('positivo '+entrada.tipo+' conta-Nome: '+conta.nome)
+                                    }else{
+                                        totValorContaNeg = totValorContaNeg + entrada.valor
+                                    }                              
+                                }                          
                             }
                         )
+                        totValorConta = totValorContaPos - totValorContaNeg
                         valorConta.push({"id" : conta.nome, "valor" : totValorConta});
-                        totValorConta = 0
+                        console.log('valor+ : '+totValorContaPos+' valor- : '+totValorContaNeg)
+                        totValorConta = 0, totValorContaPos = 0, totValorContaNeg = 0
                     }                    
-                ) /*  
-                valorCateg.forEach((valor) => {                        
-                    for(var i = 0; i < valorCateg.length; i++){
-                        var j = i + 1
-                      if(valorCateg[j].nome == valor.nome){
-                            valor.valor = valorCateg[i].valor + valor.valor
-                            console.log('entrou for: '+valor.valor)                            
-                        }                   
-                    } console.log(valorCateg) 
-                })*/
-                
-
+                )
                 res.render('home', {
                     entradas: entradas, saldoCont,
                     totDespesa, totReceita, valorConta,
                     contas: contas, saldCart, valorCateg
                 })          
             })  
-        }) 
-       
+        })
     })
 
     router.get('/movimentacao', (req, res) => {
