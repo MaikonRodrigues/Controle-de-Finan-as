@@ -50,13 +50,13 @@
                 <br><br>
                 <label for="categoriaId">Selecione Categoria:</label>
                 <select name="categoriaId">
-                {{#each categorias}}
-                     {{#if dataValues.tipo }}
-                        <option value="{{dataValue.id}}">{{dataValues.nome}}</option>
-                    {{else}}
-                           
-                    {{/if}}
-                {{/each}}      
+                    {{#each categorias}}
+                        {{#if dataValues.tipo }}
+                            <option value="{{dataValues.id}}">{{dataValues.nome}}</option>
+                        {{else}}
+                            
+                        {{/if}}
+                    {{/each}}      
                 </select>
                 <br><br>
                 <label for="contaId">Selecione Conta:</label>
@@ -81,7 +81,7 @@
                     {{#if dataValues.tipo }}
                         
                     {{else}}
-                        <option value="{{dataValue.id}}">{{dataValues.nome}}</option>   
+                        <option value="{{dataValues.id}}">{{dataValues.nome}}</option>   
                     {{/if}}
                 {{/each}}      
                 </select>

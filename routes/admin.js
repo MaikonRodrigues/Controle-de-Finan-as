@@ -16,7 +16,7 @@ const modelEntrada = require('../models/entrada')
         modelEntrada.entrada.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(entradas){
-            var saldoCont = 0, totReceita = 0, totDespesa = 0, saldCart = 0
+            var saldoCont = 0, totReceita = 0, totDespesa = 0, saldCart = 0, nome 
             entradas.forEach( 
                 (entrada) => {
                     if(entrada.tipo === 0){
@@ -33,23 +33,71 @@ const modelEntrada = require('../models/entrada')
                     modelCategoria.categoria.findAll({
                         order: [['updatedAt', 'DESC']]
                     }).then(function(categorias){
+                        var repetiu = 0
                         categorias.forEach(
-                            (categoria) =>{
-                                console.log('categoriaID:  '+entrada.categoriaId + 'cat '+categoria.id) 
+                            (categoria) =>{                               
                                 if(entrada.categoriaId == categoria.id) {
-                                    totValorCateg = totValorCateg + entrada.valor
-                                    console.log('entrou'+ totValorCateg)
+                                    for(var i = 0; i < valorCateg.length; i++){
+                                        if(valorCateg[i].nome == categoria.nome){
+                                            valorCateg[i].valor = valorCateg[i].valor + entrada.valor
+                                            console.log('repetiu '+ valorCateg[i].valor)
+                                            repetiu = 1
+                                        } 
+                                    }
+                                   if(!repetiu){
+                                        totValorCateg = totValorCateg + entrada.valor
+                                        nome = categoria.nome
+                                        valorCateg.push({"nome" : nome, "valor" : totValorCateg})
+                                        repetiu = 0
+                                   } 
+                                    
                                 }
+                               
                             },  
-                            valorCateg.push({"id" : entrada.id, "valor" : totValorCateg}), 
-                            totValorCateg = 0
-                        )
-                         
-                    })    
+                        )  
+                        console.log(valorCateg)
+                        totValorCateg = 0, nome = ''   
+                                         
+                    }) 
+                   
                 }
             );
-            
-           
+             
+            // Saldo por entradas
+            modelConta.conta.findAll({
+                order: [['updatedAt', 'DESC']]
+            }).then(function(contas){
+                var totValorConta = 0 
+                contas.forEach(
+                    (conta) => {
+                        entradas.forEach(
+                            (entrada) => {
+                                if(conta.id == entrada.contaId){                                   
+                                    totValorConta = totValorConta + entrada.valor                                    
+                                }                                
+                            }
+                        )
+                        valorConta.push({"id" : conta.nome, "valor" : totValorConta});
+                        totValorConta = 0
+                    }                    
+                ) /*  
+                valorCateg.forEach((valor) => {                        
+                    for(var i = 0; i < valorCateg.length; i++){
+                        var j = i + 1
+                      if(valorCateg[j].nome == valor.nome){
+                            valor.valor = valorCateg[i].valor + valor.valor
+                            console.log('entrou for: '+valor.valor)                            
+                        }                   
+                    } console.log(valorCateg) 
+                })*/
+                
+
+                res.render('home', {
+                    entradas: entradas, saldoCont,
+                    totDespesa, totReceita, valorConta,
+                    contas: contas, saldCart, valorCateg
+                })          
+            })  
         }) 
        
     })
