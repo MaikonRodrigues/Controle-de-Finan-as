@@ -3,20 +3,35 @@
     <div class="container">  
         <div class="row">
             {{#each entradas}}
-                <div class="col-md-4">                 
-                    <div class="card  text-center">
-                        <div class="card-header">
-                            Entradas: 
+                {{#if dataValues.tipo }}
+                    <div class="col-md-4">
+                        <div class="card text-center shadow-lg mb-5 bg-white rounded">
+                            <div class="card-header-verde">
+                                Entrada: <h6 class="text-verd">Receita</h6>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{dataValues.valor}}</h5>
+                                <br>         
+                                <a href="/admin/deletarEntrada/{{dataValues.id}}"><button class="btn btn-danger">Deletar</button></a> 
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{dataValues.valor}}</h5>
-                             <h6 >{{#if dataValues.tipo }}Receita{{else}} Despesa{{/if}}</h6>   
-                            <br>         
-                            <a href="/admin/deletarEntrada/{{dataValues.id}}"><button class="btn btn-danger">Deletar</button></a> 
-                        </div>
-                    </div> 
-                    <br>                 
-                </div>           
+                        <br>
+                    </div>
+                {{else}}
+                    <div class="col-md-4">
+                        <div class="card text-center shadow-lg mb-5 bg-white rounded">
+                            <div class="card-header-vermelho">
+                                Entrada: <h6 class="text-verm" >Despesa</h6> 
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{dataValues.valor}}</h5>
+                                <br>         
+                                <a href="/admin/deletarEntrada/{{dataValues.id}}"><button class="btn btn-danger">Deletar</button></a> 
+                            </div>
+                        </div> 
+                        <br>
+                    </div>
+                {{/if}}
             {{/each}}            
         </div><br>
       

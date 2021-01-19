@@ -14,10 +14,13 @@ const modelEntrada = require('../models/entrada')
         modelEntrada.entrada.findAll({
             order: [['updatedAt', 'DESC']]
         }).then(function(entradas){
-            var saldoCont = 0, totReceita = 0, totDespesa = 0, saldCart = 0, nome 
+            var saldoCont = 0, totReceita = 0, totDespesa = 0, saldNegCart = 0, saldCart = 0, nome 
             entradas.forEach( 
                 (entrada) => {
                     if(entrada.tipo === 0){
+                        if(entrada.contaId == 6){
+                            saldNegCart = saldNegCart + entrada.valor
+                        }
                         totDespesa = totDespesa + entrada.valor
                     }else{
                         if(entrada.contaId === 6){
@@ -43,7 +46,7 @@ const modelEntrada = require('../models/entrada')
                                    if(!repetiu){
                                         totValorCateg = totValorCateg + entrada.valor
                                         nome = categoria.nome
-                                        valorCateg.push({"nome" : nome, "valor" : totValorCateg})
+                                        valorCateg.push({"tipo" : entrada.tipo, "nome" : nome, "valor" : totValorCateg})
                                         repetiu = 0
                                    } 
                                 }
@@ -66,7 +69,6 @@ const modelEntrada = require('../models/entrada')
                                 if(conta.id == entrada.contaId){
                                     if(entrada.tipo){
                                         totValorContaPos = totValorContaPos + entrada.valor
-                                        console.log('positivo '+entrada.tipo+' conta-Nome: '+conta.nome)
                                     }else{
                                         totValorContaNeg = totValorContaNeg + entrada.valor
                                     }                              
@@ -75,10 +77,10 @@ const modelEntrada = require('../models/entrada')
                         )
                         totValorConta = totValorContaPos - totValorContaNeg
                         valorConta.push({"id" : conta.nome, "valor" : totValorConta});
-                        console.log('valor+ : '+totValorContaPos+' valor- : '+totValorContaNeg)
                         totValorConta = 0, totValorContaPos = 0, totValorContaNeg = 0
                     }                    
                 )
+                saldCart = saldCart - saldNegCart
                 res.render('home', {
                     entradas: entradas, saldoCont,
                     totDespesa, totReceita, valorConta,

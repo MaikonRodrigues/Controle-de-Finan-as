@@ -608,8 +608,10 @@ section .section-title {
 .backside .card .card-title {
     color: #007b5e !important;
 }
-.card-title {
-  
+.card-title-red{
+  color: red
+}
+.card-title {  
   color: #007b5e !important;
 }
 
@@ -4399,11 +4401,29 @@ textarea.form-control-lg {
 .card-link + .card-link {
   margin-left: 1rem /* rtl:ignore */;
 }
+.text-verm{
+  color: red;
+}
+.text-verd{
+  color: green;
+}
+.card-header-verde{
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(0, 255, 34, 0.226);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.125);
+}
+.card-header-vermelho{
+  padding: 0.5rem 1rem;
+  margin-bottom: 0;
+  background-color: rgba(255, 0, 0, 0.404);
+  border-bottom: 1px solid rgba(255, 0, 0, 0.411);
+}
 
 .card-header {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: rgba(255, 6, 6, 0.404);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 .card-header:first-child {

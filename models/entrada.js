@@ -15,8 +15,7 @@ const db = require('./db');
         },
         contaId: {
             type: db.Sequelize.INTEGER
-        } 
-
+        }
     })
     // Adiciona entrada no banco de dados
     function addEntrada(entradas, callback) {

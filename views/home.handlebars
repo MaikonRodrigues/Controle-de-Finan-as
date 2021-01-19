@@ -5,8 +5,8 @@
     <div class="row blue-cont">
         <div class="col-sm"> Mês Corrente </div> 
 
-        <div class="container margin-top-bottom">
-            <div class="row pading-top-bottom">
+        <div class="card shadow-lg mb-5 bg-white rounded">
+            <div class="row">
                 <div class="col-sm">
                     
                 </div>
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-sm cant-arredond">
                     <div class="col-sm  image-flip mainflip flip-0">
-                        <div class="card ">
+                        <div class="card shadow-lg mb-5 bg-white rounded">
                             <div class="text-center pading-top-bottom row inline-block">
                                 <div class="col-sm">
                                     <p><img class="img-fluid" src="/img/grafAlta.jpg" alt="card image"></p>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-sm ">
                     <div class="col-sm  image-flip mainflip flip-0">
-                        <div class="card ">
+                        <div class="card shadow-lg mb-5 bg-white rounded">
                             <div class="text-center pading-top-bottom row inline-block">
                                 <div class="col-sm">
                                     <p><img class="img-fluid" src="/img/grafBaixa.png" alt="card image"></p>
@@ -63,7 +63,7 @@
                 <div class="col-sm ">
                     <div class="col-sm  image-flip mainflip flip-0">
                         <h4 class="tituloh4">Contas</h4>
-                        <div class="card ">
+                        <div class="card shadow-lg mb-5 bg-white rounded">
                             <div class="text-center pading-top-bottom row inline-block">
                                 <div class="col-sm">
                                     <p><img class="img-fluid" src="/img/contas.jpg" alt="card image"></p>
@@ -71,7 +71,7 @@
                                 <div class="col-sm">
                                     <p class="card-text margin-top">Contas</p>
                                     {{#each valorConta}}
-                                       <h4 class="card-title">Conta: {{id}} - R$ {{valor}}</h4>
+                                       <h4 class="card-title"> {{id}} - R$ {{valor}}</h4>
                                     {{/each}}
                                     <a href=" " class="btn btn-primary margin-top btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
                                 </div>
@@ -83,17 +83,21 @@
                 <div class="col-sm cant-arredond">
                     <div class="col-sm  image-flip mainflip flip-0">
                         <h4 class="tituloh4">Despesas por categoria</h4>
-                        <div class="card ">
+                        <div class="card shadow-lg mb-5 bg-white rounded">
                             <div class="text-center pading-top-bottom row inline-block">
                                 <div class="col-sm">
                                     <p><img class="img-fluid" src="/img/gastCat.jpg" alt="card image"></p>
                                 </div>
                                 <div class="col-sm">
-                                    <p class="card-text margin-top">Dispesas por Categoria</p>
+                                    <p class="card-text margin-top">Despesas por Categoria</p>
                                         {{#each valorCateg}}
-                                            <h4 class="card-title">Categoria: {{nome}} - R$ {{valor}}</h4>
+                                            {{#if tipo}} 
+                                                <h4 class="card-title"> {{nome}}  R$ +{{valor}}</h4>
+                                            {{else}}
+                                                <h4 class="card-title-red"> {{nome}}  R$ -{{valor}}</h4>
+                                            {{/if}}
                                         {{/each}}         
-                                    <a href="" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
+                                    <a href="/admin/categorias" class="btn margin-top btn-primary btn-sm"><i class="fa fa-plus">Detalhamento</i></a>
                                 </div>
                             </div>
                         </div>
